@@ -54,8 +54,13 @@ public class WebElementsTest {
         driver.navigate().to("http://the-internet.herokuapp.com/challenging_dom");
         WebElement element = driver.findElement(By.xpath("//td[text()='Apeirian9']/preceding-sibling::td"));
         WebElement element1 =  driver.findElement(By.xpath("//table/tbody/tr[10]/td/following-sibling::td"));
+        WebElement element2 = driver.findElement(By.xpath("//td[text()='Apeirian9']/following-sibling::td"));
         System.out.println(element.getText());
         System.out.println(element1.getText());
+        System.out.println(element2.getText());
+
+
+
 
         driver.close();
 

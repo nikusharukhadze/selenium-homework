@@ -18,9 +18,9 @@ public class CrossBrowserTest {
     public void setup(/*@Optional("Opera")*/ String browser) throws Exception{
 
 
-        if(browser.equalsIgnoreCase("Chrome")){
-            System.setProperty("webdriver.chrome.driver", "C:\\Users\\99559\\IdeaProjects\\selenium-homework\\src\\main\\resources\\chromedriver.exe");
-            driver = new ChromeDriver();
+        if(browser.equalsIgnoreCase("Edge")){
+            WebDriverManager.edgedriver().setup();
+            driver = new EdgeDriver();
         }
 
         else if(browser.equalsIgnoreCase("Opera")){
@@ -38,19 +38,7 @@ public class CrossBrowserTest {
 
 
 
-    @Test(priority = 0)
-    public void toDoList(){
-        driver.navigate().to("http://webdriveruniversity.com/To-Do-List/index.html");
-        WebElement element = driver.findElement(By.xpath("//*[@id=\"container\"]/ul/li[text()=' Practice magic']"));
-        Actions action = new Actions(driver);
-        action.moveToElement(element).perform();
-
-        WebElement deleteBtn = driver.findElement(By.xpath("//*[@id=\"container\"]/ul/li[text()=' Practice magic']/span/i"));
-        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
-        javascriptExecutor.executeScript("arguments[0].click();", deleteBtn);
-    }
-
-    @Test(priority = 1)
+    @Test
     public void textBox(){
         driver.manage().window().maximize();
         driver.navigate().to("http://webdriveruniversity.com/Scrolling/index.html");
@@ -67,45 +55,9 @@ public class CrossBrowserTest {
 
     }
 
-    @Test(priority = 2)
-    public void TimeOutException(){
-        driver.navigate().to("https://demoqa.com/alerts ");
-        WebElement clickMeBTn = driver.findElement(By.id("timerAlertButton"));
-        clickMeBTn.click();
 
-        try {
-            new WebDriverWait(driver,3).until(ExpectedConditions.alertIsPresent());
-        }
-        catch (TimeoutException e){
-            System.out.println(e.getMessage());
-        }
 
-        System.out.println("///////////////////////////////////////////////////////////////");
-    }
 
-    @Test(priority = 3)
-    public void NoAlertPresentException(){
-        try {
-
-            driver.switchTo().alert().accept();
-        }
-        catch(NoAlertPresentException e){
-            System.out.println(e.getMessage());
-        }
-        System.out.println("///////////////////////////////////////////////////////////////");
-    }
-
-    @Test(priority = 4)
-    public void StaleElementReferenceException(){
-        WebElement clickMeBTn = driver.findElement(By.id("timerAlertButton"));
-        driver.navigate().refresh();
-        try {
-            clickMeBTn.click();
-        }
-        catch(StaleElementReferenceException e){
-            System.out.println(e.getMessage());
-        }
-    }
 
     @AfterTest
     public void closePage(){

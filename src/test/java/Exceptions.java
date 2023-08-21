@@ -1,9 +1,22 @@
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class Exceptions extends BaseTest{
+public class Exceptions {
+
+    WebDriver driver;
+    @BeforeTest
+    public void setup() {
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\99559\\IdeaProjects\\selenium-homework\\src\\main\\resources\\chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("headless");
+        driver = new ChromeDriver(options);
+
+    }
     @Test(priority = 0)
     public void TimeOutException(){
         driver.navigate().to("https://demoqa.com/alerts ");
@@ -23,7 +36,7 @@ public class Exceptions extends BaseTest{
     @Test(priority = 1)
     public void NoAlertPresentException(){
         try {
-            new WebDriverWait(driver,6).until(ExpectedConditions.alertIsPresent());
+
             driver.switchTo().alert().accept();
         }
         catch(NoAlertPresentException e){
